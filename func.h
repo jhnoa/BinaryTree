@@ -15,6 +15,15 @@
 #include <string>
 #include <algorithm>
 using namespace std;
-
-
+int cek(string a, string b);
+void put(string);
 #endif
+// sumber: http://www.tutorialspoint.com/cplusplus/cpp_templates.htm
+/*
+template <typename T>
+inline T const& test (T const& a, T const& b) 
+{ 
+    return a < b ? 1:0; 
+} 
+*/
+

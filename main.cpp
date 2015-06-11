@@ -1,8 +1,9 @@
 #include "tree.h"
 #include "node.h"
 #include "func.h"
+#include <conio.h>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
-tree pohon;
+
 /*
 void insert(int val)
 {
@@ -36,13 +37,14 @@ void printDFS(node_t * current) {
   if(current->right!=NULL)printDFS(current->right);}
 
 */
-void maintain();
+tree *pohon = new tree;
+
 void menu_data();
 void t_karakter();
 
 int main(int argc, char** argv) 
 {
-
+	char x;
 	do
 	{	
 		system("cls");
@@ -54,37 +56,46 @@ int main(int argc, char** argv)
 			 << "4. Exit." << endl
 			 << "" << endl
 			 << "Pilihan anda? ";
-		try
+//		cout << endl << sizeof(*(*pohon).left);
+		cin >> x;
+		fflush(stdin);
+		if(x > '0' && x < '5')
 		{
-			fflush(stdin);
-			throw getchar();
-		}
-		catch (int x)
-		{
-			x-='0';
-			if (x == 1) menu_data();
-			else if (x == 2);
-			else if (x == 3);
-			else if (x == 4) exit(1);
-			else
+			switch (x)
 			{
-				fflush(stdin);
-				cout << "Error input. Repeat input." << endl;
-				getchar();
-			} 
+				case '1' :{
+					menu_data();
+					break;
+				}
+				
+				case '2' :{
+					t_karakter();
+					break;
+				}
+				
+				case '3':{
+					
+					break;
+				}
+				
+				case '4':{
+					exit(0);
+					break;
+				}
+			}
+		}
+		else
+		{
+			cout << "Error Input." << endl;
+			getchar();
 		}
 	} while(1);
 	return 0;
 }
 
-void maintain()
-{
-	
-	
-}
-
 void menu_data()
 {
+	char x;
 	int n = 0;
 	do
 	{
@@ -97,47 +108,130 @@ void menu_data()
 			 << "4. Kembali ke Main Menu." << endl
 			 << "" << endl
 			 << "Pilihan anda? ";
-		try
+//		cout << endl << sizeof(pohon)
+//			 << endl << sizeof(pohon->here)
+//			 << endl << sizeof(pohon->here->alamat)
+//			 << endl << sizeof(pohon->here->diisi)
+//			 << endl << sizeof(*pohon)
+//			 << endl << sizeof(*pohon->here);
+		cin >> x;
+		fflush(stdin);
+		if(x > '0' && x < '5')
 		{
-			fflush(stdin);
-			throw getchar();
-		}
-		catch (int x)
-		{
-			x-='0';
-			if (x == 1);
-			else if (x == 2);
-			else if (x == 3);
-			else if (x == 4) n = 1;
-			else 
+			switch (x)
 			{
-				fflush(stdin);
-				cout << "Error input. Repeat input." << endl;
-				getchar();
+				case '1' :{
+					system("cls");
+					pohon->print();
+					cout << endl 
+						 << "Tekan apa saja untuk kembali"; getch();
+					break;
+				}
+				
+				case '2' :{
+					
+					break;
+				}
+				
+				case '3':{
+					
+					break;
+				}
+				
+				case '4':{
+					n = 1;
+					break;
+				}
 			}
+		}
+		else
+		{
+			cout << "Error Input." << endl;
+			getchar();
 		}
 	} while (n != 1);
 }
 
 void t_karakter()
 {
+//	cout << "masuk"; getchar();
 	int n = 0;
-	string nama, alamat;
+	char *temp;
 	int umur;
+	string nama, alamat;
 	system("cls");
+	cout << "Menu Tambah Karakter" << endl;
+	
 	do
 	{
-		cout << "Menu Tambah Karakter" << endl
-			 << "Nama: ";
-		try
+		cout << "Nama: ";
+		temp = new char[256];
+		gets(temp);
+		for (int i = 0; i < strlen(temp); i++)
 		{
-			fflush(stdin);
-//			gets(nama);
-//			throw 
-		}
-		catch (string x)
-		{
-//			for (int i = 0; i < x.leght(); i++)
+			if (!ispunct(temp[i]) || temp[i] == '.' || temp[i] == ',' || temp[i] == '\'' || temp[i] == ' ')
+			{
+				n = 1;
+			}
+			else
+			{
+				cout << "Error Input." << endl;
+				n = 0;
+				delete[] temp;
+				break;
+			} 
+			
 		}
 	} while (n != 1);
+	nama = temp;
+	delete[] temp;
+
+	do
+	{
+		cout << "Umur: ";
+		temp = new char[256];
+		gets(temp);
+		for (int i = 0; i < strlen(temp); i++)
+		{
+			if (isdigit(temp[i]))
+			{
+				n = 2;
+			}
+			else
+			{
+				cout << "Error Input." << endl;
+				n = 0;
+				delete[] temp;
+				break;
+			} 
+			
+		}
+	} while (n != 2);
+	umur = atoi(temp);
+	delete[] temp;
+	
+	do
+	{
+		cout << "Alamat: ";
+		temp = new char[256];
+		gets(temp);
+		for (int i = 0; i < strlen(temp); i++)
+		{
+			if (!ispunct(temp[i]) || temp[i] == '.' || temp[i] == ',' || temp[i] == '\'' || temp[i] == ' ')
+			{
+				n = 3;
+			}
+			else
+			{
+				cout << "Error Input." << endl;
+				n = 0;
+				delete[] temp;
+				break;
+			} 
+			
+		}
+	} while (n != 3);
+	alamat = temp;
+	delete[] temp;
+	pohon->insert(nama, umur, alamat);
 }

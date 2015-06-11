@@ -4,11 +4,12 @@ node::node()
 {
 }
 
-node::node(string a, int b, string c)
+node::node(string c, int a, string b)
 {
-	nama = a;
-	umur = b;
-	alamat = c;
+	nama = c;
+	umur = a;
+	alamat = b;
+//	diisi = 1;
 }
 
 node::~node()
