@@ -4,7 +4,7 @@ node::node()
 {
 }
 
-node::node(string c, int a, string b)
+node::node(string c, string a, string b)
 {
 	nama = c;
 	umur = a;

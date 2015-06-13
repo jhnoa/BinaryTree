@@ -41,9 +41,11 @@ tree *pohon = new tree;
 
 void menu_data();
 void t_karakter();
+void initialize();
 
 int main(int argc, char** argv) 
 {
+	initialize();
 	char x;
 	do
 	{	
@@ -122,14 +124,37 @@ void menu_data()
 			{
 				case '1' :{
 					system("cls");
-					pohon->print();
+					if(pohon->diisi == 0) cout << "Belum Ada Data.";
+					else
+					{
+						pohon->kop();
+						pohon->print();
+					}
 					cout << endl 
 						 << "Tekan apa saja untuk kembali"; getch();
 					break;
 				}
 				
 				case '2' :{
+					int n = 1;
+					system("cls");
+					string temp;
+					cout << "Masukan Umur Karakter: ";
+					cin >> temp;
+					for(int i = 0; i < temp.length(); i++) 
+						if(!isdigit(temp[i])) 
+						{
+							cout << "Input Error.";getch();
+							n = -1;
+							break;
+						}
+					if(n == 1)
+					{
+						pohon->cariUmur(temp);
+						cout << endl
+							 << "Tekan apa saja untuk kembali"; getch();
 					
+					}
 					break;
 				}
 				
@@ -151,14 +176,31 @@ void menu_data()
 		}
 	} while (n != 1);
 }
+// bikin error
+void initialize()
+{
+	fstream file;
+//	int x;
+	string nama,umur,alamat;
+	file.open("data.txt",ios_base::in);
+	while (!file.eof())
+	{
+		getline(file, nama, '\t');
+		if(nama == "") break;
+		getline(file, umur, '\t');
+		getline(file, alamat, '\n');
+		pohon->insert(nama, umur, alamat);
+	}
+	file.close();
+}
 
 void t_karakter()
 {
 //	cout << "masuk"; getchar();
 	int n = 0;
 	char *temp;
-	int umur;
-	string nama, alamat;
+	
+	string nama, alamat, umur;
 	system("cls");
 	cout << "Menu Tambah Karakter" << endl;
 	
@@ -207,7 +249,7 @@ void t_karakter()
 			
 		}
 	} while (n != 2);
-	umur = atoi(temp);
+	umur = temp;
 	delete[] temp;
 	
 	do
@@ -233,5 +275,12 @@ void t_karakter()
 	} while (n != 3);
 	alamat = temp;
 	delete[] temp;
+	
+	ofstream file;
+	file.open("data.txt", ios_base::app);
+//	if(file.is_open()) cout << "Open.";
+//	else cout << "UnOpened.";
+	file << nama.c_str() << '\t' << umur.c_str() << '\t' << alamat.c_str() << endl;
+	file.close();
 	pohon->insert(nama, umur, alamat);
 }

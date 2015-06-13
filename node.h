@@ -5,11 +5,11 @@ class node
 {
 	public:
 		node();
-		node(string, int, string);
+		node(string, string, string);
 		~node();
 		string nama;
 		string alamat;
-		int umur;
+		string umur;
 	protected:
 };
 
