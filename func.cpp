@@ -17,6 +17,7 @@ int cek(string a, string b)
     	else if(a[i] < b[i]) return 1;
     	else return 0;
     }
+    return 1;
 //	return a.compare() < b ? 1:0;
 }
 

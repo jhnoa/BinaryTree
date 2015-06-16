@@ -1,7 +1,6 @@
 #include "tree.h"
 #include "node.h"
 #include "func.h"
-#include <conio.h>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 /*
@@ -42,10 +41,18 @@ tree *pohon = new tree;
 void menu_data();
 void t_karakter();
 void initialize();
+void print_output()
+{
+	remove("output.txt");
+	pohon->output();
+}
+
+int maxNama = 4, maxUmur = 4, maxAlamat = 6;
 
 int main(int argc, char** argv) 
 {
 	initialize();
+	print_output();
 	char x;
 	do
 	{	
@@ -72,11 +79,12 @@ int main(int argc, char** argv)
 				
 				case '2' :{
 					t_karakter();
+					print_output();
 					break;
 				}
 				
 				case '3':{
-					
+					print_output();
 					break;
 				}
 				
@@ -127,8 +135,8 @@ void menu_data()
 					if(pohon->diisi == 0) cout << "Belum Ada Data.";
 					else
 					{
-						pohon->kop();
-						pohon->print();
+						pohon->kop(maxNama, maxUmur, maxAlamat);
+						pohon->print(maxNama, maxUmur, maxAlamat);
 					}
 					cout << endl 
 						 << "Tekan apa saja untuk kembali"; getch();
@@ -150,7 +158,8 @@ void menu_data()
 						}
 					if(n == 1)
 					{
-						pohon->cariUmur(temp);
+						pohon->kop(maxNama, maxUmur, maxAlamat);
+						pohon->cariUmur(temp, maxNama, maxUmur, maxAlamat);
 						cout << endl
 							 << "Tekan apa saja untuk kembali"; getch();
 					
@@ -159,7 +168,33 @@ void menu_data()
 				}
 				
 				case '3':{
-					
+					char *temp1 = new char[1000];
+					string temp;
+					system("cls");
+					cout << "Alamat: ";
+					gets(temp1);
+					temp = temp1;
+					for (int i = 0; i < temp.length(); i++)
+					{
+						if (!ispunct(temp[i]) || temp[i] == '.' || temp[i] == ',' || temp[i] == '\'' || temp[i] == ' ')
+						{
+							n = 2;
+						}
+						else
+						{
+							cout << "Error Input.";getch();
+							n = 0;
+							break;
+						} 
+			
+					}
+					if (n == 2)
+					{
+						pohon->kop(maxNama, maxUmur, maxAlamat);
+						pohon->cariAlamat(temp, maxNama, maxUmur, maxAlamat);
+						cout << endl
+							 << "Tekan apa saja untuk kembali"; getch();
+					}
 					break;
 				}
 				
@@ -186,9 +221,12 @@ void initialize()
 	while (!file.eof())
 	{
 		getline(file, nama, '\t');
+		if(nama.length() > maxNama) maxNama = nama.length();
 		if(nama == "") break;
 		getline(file, umur, '\t');
+		if(umur.length() > maxUmur) maxUmur = umur.length();
 		getline(file, alamat, '\n');
+		if(alamat.length() > maxAlamat) maxAlamat = alamat.length();
 		pohon->insert(nama, umur, alamat);
 	}
 	file.close();
@@ -226,6 +264,7 @@ void t_karakter()
 		}
 	} while (n != 1);
 	nama = temp;
+	if(nama.length() > maxNama) maxNama = nama.length();
 	delete[] temp;
 
 	do
@@ -251,6 +290,7 @@ void t_karakter()
 	} while (n != 2);
 	umur = temp;
 	delete[] temp;
+	if(umur.length() > maxUmur) maxUmur = umur.length();
 	
 	do
 	{
@@ -275,6 +315,7 @@ void t_karakter()
 	} while (n != 3);
 	alamat = temp;
 	delete[] temp;
+	if(alamat.length() > maxAlamat) maxAlamat = alamat.length();
 	
 	ofstream file;
 	file.open("data.txt", ios_base::app);

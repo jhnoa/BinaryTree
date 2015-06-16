@@ -10,10 +10,12 @@ class tree
 		~tree();
 		void insert(string, string, string);
 		void addNode(string, string, string);
-		void print();
-		void kop();
-		void cariUmur(string);
-		static int maxNama = 4, maxUmur = 4, maxAlamat = 6;
+		void print(int, int, int);
+		void kop(int, int, int);
+		void cariUmur(string, int, int, int);
+		void cariAlamat(string, int, int, int);
+		void output();
+		
 		int diisi = 0;
 		node *here = new node;
 		int kanan = 0, kiri = 0;

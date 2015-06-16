@@ -14,9 +14,6 @@ void tree::insert(string data, string umur, string alamat)
 //	cout << "insert";
 	if(diisi==0)
 	{
-		if(data.length() > maxNama) maxNama = data.length();
-		if(umur.length() > maxUmur) maxUmur = umur.length();
-		if(alamat.length() > maxAlamat) maxAlamat = alamat.length();
 		addNode(data, umur, alamat);
 	}
 	else if(cek(data,here->nama) == 1)
@@ -49,41 +46,62 @@ void tree::addNode(string n, string a, string b)
 	here = new node(n,a,b);
 }
 
-void tree::print()
+void tree::print(int maxNama, int maxUmur, int maxAlamat)
 {
 //	cout << here->nama;
 //	getchar();
-	if(kiri == 1) left->print();
-	int x = maxNama - here->nama.length() + 1;
-	int y = maxUmur - here->umur.length() + 1;
-	cout << here->nama << setw(x) << " " << here->umur << setw(y) << " " << here->alamat << endl;
-	if(kanan == 1) right->print();
+	if(kiri == 1) left->print(maxNama, maxUmur, maxAlamat);
+	cout.setf(ios::left, ios::adjustfield);
+	cout << setw(maxNama) << here->nama << " " << setw(maxUmur) << here->umur << " " << setw(maxAlamat) << here->alamat << endl;
+	cout.unsetf(ios::adjustfield);
+	if(kanan == 1) right->print(maxNama, maxUmur, maxAlamat);
 }
 
-void tree::kop()
+void tree::kop(int maxNama, int maxUmur, int maxAlamat)
 {
 	int temp = maxNama + 1 + maxUmur + 1 + maxAlamat;
 	for (int i = 0; i < temp; i++)cout << '-';
 	cout << endl;
-	cout << "Nama" << setw(maxNama - 3) << ' ' << "Umur" << setw(maxUmur - 3) << ' ' << "Alamat" << endl;
+	cout.setf(ios::left, ios::adjustfield);
+	cout << setw(maxNama) << "Nama" << " " << setw(maxUmur) << "Umur"  << " " << setw(maxAlamat) << "Alamat" << endl;
+	cout.unsetf(ios::adjustfield);
 	for (int i = 0; i < temp; i++)cout << '-';
 	cout << endl;
 }
-
-void tree::cariUmur(string umur)
-{
-	static int n;
-	if(kiri == 1) left->cariUmur(umur);
-	if(stoi(here->umur) > stoi(umur) && n == 0)
-	{
-		tree::kop();
-		cout << here->nama << setw(maxNama - here->nama.length() + 1) << ' ' << here->umur << setw(maxUmur - here->umur.length() + 1) << ' ' << here->alamat << endl;
-		n++;
-	}
-	else if(stoi(here->umur) > stoi(umur) && n != 0)
-	{
-		cout << here->nama << setw(maxNama - here->nama.length() + 1) << ' ' << here->umur << setw(maxUmur - here->umur.length() + 1) << ' ' << here->alamat << endl;
-	}
-	if(kanan == 1) right->cariUmur(umur);
 	
+void tree::cariUmur(string umur, int maxNama, int maxUmur, int maxAlamat)
+{
+	if(kiri == 1) left->cariUmur(umur, maxNama, maxUmur, maxAlamat);
+	if(stoi(here->umur) > stoi(umur))
+	{
+		cout.setf(ios::left, ios::adjustfield);
+		cout << setw(maxNama) << here->nama << ' ' << setw(maxUmur) << here->umur << ' ' << setw(maxAlamat) << here->alamat << endl;
+		cout.unsetf(ios::adjustfield);
+	}
+	if(kanan == 1) right->cariUmur(umur, maxNama, maxUmur, maxAlamat);
+}
+
+void tree::cariAlamat(string alamat, int maxNama, int maxUmur, int maxAlamat)
+{
+	if(kiri == 1) left->cariAlamat(alamat, maxNama, maxUmur, maxAlamat);
+	if(!strcmp(here->alamat.c_str(), alamat.c_str()))
+	{
+		cout.setf(ios::left, ios::adjustfield);
+		cout << setw(maxNama) << here->nama << ' ' << setw(maxUmur) << here->umur << ' ' << setw(maxAlamat) << here->alamat << endl;
+		cout.unsetf(ios::adjustfield);
+	}
+	if(kanan == 1) right->cariAlamat(alamat, maxNama, maxUmur, maxAlamat);
+
+}
+
+void tree::output()
+{
+	if(kiri == 1) left->output();
+	
+	ofstream file;
+	file.open("output.txt", ios_base::app);
+	file << here->nama << '\t' << here->umur << '\t' <<here->alamat << endl;
+	file.close();
+	
+	if(kanan == 1) right->output();
 }
