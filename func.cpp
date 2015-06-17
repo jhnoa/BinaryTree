@@ -2,6 +2,8 @@
 
 int cek(string a, string b) 
 {
+	return a.compare(b)<=0;
+	/* maafkan daku
 	int n;
 	char *x, *y;
 //	x = new char[a.length()+1];
@@ -19,6 +21,7 @@ int cek(string a, string b)
     }
     return 1;
 //	return a.compare() < b ? 1:0;
+	*/
 }
 
 void put(string x)

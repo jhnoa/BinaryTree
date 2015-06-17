@@ -15,7 +15,7 @@ class tree
 		void cariUmur(string, int, int, int);
 		void cariAlamat(string, int, int, int);
 		void output();
-		
+		void hapustree();
 		int diisi = 0;
 		node *here = new node;
 		int kanan = 0, kiri = 0;

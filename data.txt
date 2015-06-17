@@ -2,9 +2,18 @@ Jon Snow	20	Castle Black
 Stannis Baratheon	42	Winterfell
 Cersei Lannister	41	Kings's Landing
 Arya Stark	15	Braavos
-Daenary Targayen	20	Meereen	
+Daenary Targayen	20	Meereen
 Tyrion Lannister	37	Meereen
 Sansa Stark	18	Winterfell
 Petyr Baelish	40	Kings's Landing
 Margaery Tyrell	19	Kings's Landing
 Brienne of Tarth	21	Winterfell
+Arthur	19	Jakarta
+Arthurs	19	Jakarta
+Icha	19	Cicurug
+Arthu	19	Jakarta
+Ichas	19	Cicurug
+Reren	18	Jogja
+Art	19	Jakarta
+Arthurssss	19	Jakarta
+12312	19	Jakarta

@@ -105,3 +105,18 @@ void tree::output()
 	
 	if(kanan == 1) right->output();
 }
+
+void tree::hapustree()
+{
+	if(diisi == 1) delete here;
+	if(kiri == 1)
+	{
+		left->hapustree();
+		delete left;
+	}
+	if(kanan == 1)
+	{
+		right->hapustree();
+		delete right;
+	}
+}
